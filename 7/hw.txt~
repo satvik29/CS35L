@@ -1,0 +1,7 @@
+Homework answers 
+Satvik Anand
+404823011
+
+1) The network would still be secure because the other team would not know what the private keys are. If the private keys are never sent across the network, they will be unable to decode any of the messages. If the teams were looking at our keystrokes then they would be able to look at what messages wer esent. Thus even though they don't know what they keys are, they'd still be able to tell what the actual message is and thus the network wouldn't be secure. If they obtained the USB and we were saving all of our files to the USB, they would be able to obtain the private key. The private key is contained in a file and the network would not be secure anymore.
+
+2) It does not verify that we created the file because it only has access to the public key and the account name that is associated with it. Thus it cannot actually verify that the account in question created the public key. One method to fix this is to encrypt a message using the public key and send it to the account. If the account is able to its private key decrypt the message, then it is indeed the correct public key.

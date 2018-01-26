@@ -1,0 +1,191 @@
+1. I set the locale using export LC_ALL='C'
+
+2. I sorted words using sort /usr/share/dict/words > words
+
+3. I downloaded the webpage using curl -o a2 http://web.cs.ucla.edu/classes/fall17/cs35L/assign/assign2.html
+
+4. 
+tr -c 'A-Za-z' '[\n*]' < a2
+Removes all the words that do not have characters from A-z and leaves empty lines in the lines which do not contain these characters. 
+
+5.
+tr -cs 'A-Za-z' '[\n*]' < a2
+Does the same thing as the above command but doesn’t do the empty lines. 
+
+6.
+tr -cs 'A-Za-z' '[\n*]' | sort < a2
+Sorts the output of the above command.
+
+7. 
+tr -cs 'A-Za-z' '[\n*]' | sort -u < a2
+The file is sorted but has no repetitions of an instance.
+
+8. tr -cs 'A-Za-z' '[\n*]' | sort -u  < a2 | comm - words
+Compares the 2 files. Column 1 contains the the result from part 7. Column 2 contains all the lines unique to words. Column 3 contains the lines that are common to both the files.
+
+9. tr -cs 'A-Za-z' '[\n*]' < a2 | sort -u | comm -23 - words
+Prints out the lines unique to file 1 and sorts them in alphabetical order.
+
+10. 
+
+Buildwords
+
+#!/bin/bash
+sed '/<!DOCTYPE/,/Adopt<\/td>/d' |
+sed '/<\/table>/,/<\/html>/d' |
+sed '/<tr>/,/<\/td>/d' |
+tr -d '\r\n' |
+tr '[:upper:]' '[:lower:]' |
+sed 's/<\/td>/\n/g' |
+sed 's/\,/\n/g' |
+sed s/\`/\'/g |
+sed 's/<[^>]*>//g' |
+sed 's/ /\n/g' |
+tr -d '[:blank:]' |
+sed '/-/d' |
+tr -cs "pk\'mnwlhaeiou" '[\n*]' |
+sort -u |
+sed '/^$/d'
+
+11.
+chmod u+x buildwords
+
+12. cat h2e | ./buildwords > hwords
+
+13. cat a2 | tr -cs 'A-Za-z' '[\n*]' | tr '[:upper:]' '[:lower:]' | sort -u | comm -23 - words > wrongEnglish
+
+38 wrong english words
+
+14. cat a2 | tr -cs "pk/'mnwlhaeiou" '[\n*]' | tr '[:upper:]' '[:lower:]' | sort -u | comm -23 - hwords > wrongHawaiian
+
+217 wrongHawaiian words 
+
+15. 
+cat wrongEnglish | tr -cs "pk\'mnwlhaeiou" '[\n*]' | sort -u | comm -12 - hwords > wrongEngHaw
+
+6 words
+
+Examples:
+e
+halau
+i
+lau
+po
+wiki
+
+16.
+cat wrongHawaiian | tr -cs "pk\'mnwlhaeiou" '[\n*]' | sort -u | comm -12 - words > wrongHawEng
+
+110 words 
+
+Examples:
+a
+ail
+ain
+ake
+al
+ale
+alen
+all
+amine
+amp
+ample
+an
+aph
+aul
+awk
+e
+ea
+ee
+el
+em
+emp
+en
+ep
+epa
+h
+ha
+han
+hap
+he
+hei
+hell
+hem
+hen
+hi
+hin
+ho
+how
+howe
+i
+ia
+ie
+ile
+imp
+in
+ion
+iou
+k
+keep
+kin
+l
+lan
+le
+lea
+li
+like
+line
+link
+ll
+ln
+lo
+lowe
+m
+mail
+man
+me
+men
+mi
+ml
+mo
+mp
+n
+name
+ne
+nee
+no
+non
+nu
+num
+o
+om
+on
+one
+op
+ope
+open
+owe
+own
+p
+pe
+pell
+people
+plea
+pu
+u
+ui
+ula
+ule
+ume
+ump
+un
+uni
+w
+wa
+wan
+we
+wh
+wha
+who
+wi
+wo

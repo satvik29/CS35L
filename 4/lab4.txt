@@ -1,0 +1,54 @@
+Satvik Anand
+404823011 
+
+Log:
+1) I first downloaded the coreutils-with-bug and used the install command with the appropriate prefix to install it in the correct folder.
+
+2) However, when I ran the make command I got the follow error. 
+
+In file included from utimecmp.c:41:0:
+utimens.h:2:5: error: conflicting types for 'futimens'
+ int futimens (int, char const *, struct timespec const [2]);
+     ^
+In file included from utimecmp.h:25:0,
+                 from utimecmp.c:25:
+/usr/include/sys/stat.h:373:12: note: previous declaration of 'futimens' was here
+ extern int futimens (int __fd, const struct timespec __times[2]) __THROW;
+
+3) I applied the renaming patch by copy pasting the patch from the website into a text file and then using the command patch p0 < coreutils.diff to apply the patch, after editing the name of the old file in the patch. 
+
+4) Now running the make and install commands builds the file successfully. 
+
+5) Reproducing the bug:
+To reproduce the bug, I used the commands given in the spec and found that the armistice command was first and not third. 
+Looking at the dates that come out, we can see that indeed the bug exists. Now we need to figure out how to fix it. 
+
+6) To fix the bug we have to use gdb, and the first thing we do is look in the src directory of coreutils-with-bug to use gdb on the ls executable. We create a temp file and use touch to give it an old date and then use gdb —args ls -lt temp.c to run gdb on the ls command. Using the command run, we can confirm that the file still exists.
+
+7) Then we use info functions to see all the functions and see that there are three functions that might be suspicious. These are compare_atime, compare_ctime, and
+compare_mtime.
+
+8) We place breakpoints at these functions using the command break <function name> and use run to start execution. We break at the line func = sort_reverse ? rev_cmp_mtime : compare_mtime.
+
+9) We use step to see what this function is doing and we get taken to the file timespec.h and the function timespec_cmp.
+
+10) From timespec_cmp, we can see that function relies on subtraction to calculate the date. This creates the possibility of overflow. An old date would have relatively fewer seconds than a newer date, and if this older date was in a.tv_sec and a newer date was in b.tv_sec we would have a negative number. A large enough difference would cause an overflow causing the date to get printed in the future. 
+
+11) To fix the bug, we use an if statement instead of using subtraction. We can modify the function timespec_cmp to look like this.
+
+timespec_cmp (struct timespec a, struct timespec b)
+{
+  if (a.tv_sec < b.tv_sec) 
+	return -1;
+  else if (b.tv_sec < a.tv_sec) 
+	return 1;
+  return 0;
+}
+
+12) Now we have to create our patch file. We copy timespec.h to a new file and we edit this file to include the change to timespec_cmp. 
+We then use the command diff -u timespec.h timespecnew.h > lab4.diff to create our diff file.
+
+13) Testing: 
+To test the bug on the SEASnet servers, I used the touch command on one of the files and when I used the command ls -lt, I saw that the bug does persist on the SEASnet server. To remedy this, I changed leak.cpp and the command ls -lt leak.cpp yields the following output:
+-rw-r--r-- 1 classsat class 30879 Dec 27  2052 leak.cpp.
+

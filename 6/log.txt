@@ -1,0 +1,37 @@
+Satvik Anand
+404823011
+
+First we check whether we are running the latest version of sort, we do this by running the command: /usr/local/cs/bin/sort --version.
+
+The next step is to create our test file. We also need to make sure that the file has enough space for the spaces that are entered after the random numbers. we can do this by using the command: od -N 17777775 /dev/urandom | tr ' ' '\n' > test.txt. 
+This command creates our random file and removes the white spaces and replaces them with new lines.
+
+Now, we can check how long sort takes without multithreading. We do this using the command time -p /usr/local/cs/bin/sort -g test.txt > /dev/null. On doing this I got the following results:
+real 10.25
+user 49.96
+sys 0.43
+
+
+Now we can test it out using multithreading. We use the command: time -p /usr/local/cs/bin/sort -g --parallel=N test.txt > /dev/null, where N is the numbers 1, 2, 4 and 8 according to the level of optimization that we want to run. I got the following results after running this command the required 4 times.
+
+Parallel=1: 
+real 43.97
+user 43.81
+sys 0.15
+
+Parallel=2:
+real 25.25
+user 47.75
+sys 0.24
+
+Parallel=4:
+real 14.86
+user 48.04
+sys 0.32
+
+Parallel=8:
+real 10.02
+user 50.76
+sys 0.43
+
+It becomes that the time taken to execute sort continues to reduce as we impose increased parallelism. The time for real keeps on reducing, and is nearly 1/4th what it originally was when we have parallel=8. However the time for user and sys increase a little bit every time so the time decrease is not that significant. 

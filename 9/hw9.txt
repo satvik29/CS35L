@@ -1,0 +1,53 @@
+Satvik Anand 
+404823011
+
+HW log:
+
+First I used the command git checkout v3.0 -b quote to create a new branch 
+called quote.
+
+I installed the patch using the command patch -p0 < quote-3.0-patch.txt
+
+I reviewed how to use change buffer and then edited the change log by just
+opening emacs, typing in the command C-x 4 a and then entering the changes I
+ made.
+
+I committed the changes I made using the command: 
+git commit -aF ChangeLog
+
+I then generated the patch using the command:
+git format-patch -1 --stdout > formatted-patch.txt
+
+The next step was verifying whether my partner's patch worked.
+
+My partner was Nikhil, who emailed me his formatted-patch.txt. I first created 
+a new 3.0 branch called "partner" using the command:
+git checkout -b 'partner' 'v3.0'
+
+Then I used:
+git am NIKSformatted-patch.txt and got
+Applying: 2017-12-03 Nikhil Swaminathan <nikhil@lnxsrv01.seas.ucla.edu> and I 
+found that the patch was successful.
+
+Then I built using the commands given in the lab and ran
+./src/diff . - and ./src/diff --help 
+
+No ` found, so it works.
+
+I then verified the ChangeLog using make distdir. After running for a while, it
+ creates diffutils-3.0.1-c190. The first entry is the right change log entry:
+
+        2017-12-03 Nikhil Swaminathan <nikhil@lnxsrv01.seas.ucla.edu>
+                * src/cmp.c: Changing all of the "`" to "'" and """
+                * src/diff.c: Changing all of the "`" to "'" and """
+                * src/diff3.c: Changing all of the "`" to "'" and """
+                * src/dir.c: Changing all of the "`" to "'" and """
+                * src/sdiff.c: Changing all of the "`" to "'" and """
+                * src/util.c: Changing all of the "`" to "'" and """
+So it works.
+
+The last part was finding the newest merge that is not newer than 2015-01-25.
+I did this using the command cd ~eggert/src/gnu/emacs followed by gitk, which
+opened up the xquartz window. I took a screenshot and wrote the description 
+accordingly.
+

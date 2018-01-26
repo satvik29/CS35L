@@ -1,0 +1,135 @@
+1. wget ftp://ftp.gnu.org/gnu/coreutils/coreutils-7.6.tar.gz
+Used to download coreutils-7.6
+
+2. tar -xzvf coreutils-7.6.tar.gz 
+Unzip coreutils. 
+
+3. cd coreutils-7.6
+Open the coreutils directory
+
+4. ./configure —-prefix=/u/eng/class/classsat/coreutilsInstall
+Configure coreutils using the appropriate prefix to make sure that it is not install in u/bin/lib
+
+5. make
+run the make commands.
+
+6. make install
+complete the installation. 
+
+7. cd coreutilsInstall
+./bin/ls -l
+Reproducing the bug to see that it shows the dates in the wrong format.
+
+8. cd coreutils-7.6
+vim patch_file
+Go to the patch link and copy paste the patch into patch_file
+Now the patch has been pasted into the patch file and we need to finish the patch. 
+
+9. patch -p1 < patch_file
+Patch is successful.
+
+10. make
+This remakes only the files that have been modified.
+
+11. Testing:
+touch -t touch –t 201401210959.30 test_file This creates a file that is a year old.
+touch new
+This creates a new file. 
+After running ~coreutilsInstall/bin/ls -l 
+we get 
+-rw-r--r--  1 classsat class       0 2017-10-18 15:35 201401210959.30
+-rw-r--r--  1 classsat class   80541 2008-09-18 00:19 ABOUT-NLS
+-rw-r--r--  1 classsat class   47272 2009-09-10 22:56 aclocal.m4
+-rw-r--r--  1 classsat class    3571 2009-09-01 04:01 AUTHORS
+-rwxr-xr-x  1 classsat class   23005 2009-09-01 04:01 bootstrap
+-rw-r--r--  1 classsat class    5641 2009-09-10 22:52 bootstrap.conf
+drwxr-xr-x  2 classsat class    4096 2009-09-10 23:15 build-aux
+-rw-r--r--  1 classsat class    7744 2009-09-10 11:29 cfg.mk
+-rw-r--r--  1 classsat class  310286 2009-09-10 23:15 ChangeLog
+-rw-r--r--  1 classsat class  448879 2009-09-01 04:01 ChangeLog-2005
+-rw-r--r--  1 classsat class  153390 2009-09-01 04:01 ChangeLog-2006
+-rw-r--r--  1 classsat class  158644 2009-09-01 04:01 ChangeLog-2007
+-rw-r--r--  1 classsat class   13716 2009-09-01 04:01 ChangeLog-2008
+-rw-r--r--  1 classsat class 1565398 2017-10-18 15:07 config.log
+-rwxr-xr-x  1 classsat class   77307 2017-10-18 15:07 config.status
+-rwxr-xr-x  1 classsat class 1179944 2009-09-10 22:56 configure
+-rw-r--r--  1 classsat class   15617 2009-09-10 22:52 configure.ac
+-rw-r--r--  1 classsat class   35147 2009-09-01 04:01 COPYING
+-rw-r--r--  1 classsat class    4838 2009-09-01 04:01 dist-check.mk
+drwxr-xr-x  2 classsat class    4096 2017-10-18 15:07 doc
+drwxr-xr-x  3 classsat class    4096 2009-09-10 23:15 gl
+drwxr-xr-x  5 classsat class   20480 2017-10-18 15:07 gnulib-tests
+-rw-r--r--  1 classsat class    4702 2009-03-15 00:11 GNUmakefile
+-rw-r--r--  1 classsat class   15513 2009-08-30 01:52 INSTALL
+drwxr-xr-x  7 classsat class   61440 2017-10-18 15:07 lib
+drwxr-xr-x  2 classsat class   28672 2009-09-10 23:15 m4
+-rw-r--r--  1 classsat class   28788 2009-09-08 00:47 maint.mk
+-rw-r--r--  1 classsat class   56482 2017-10-18 15:07 Makefile
+-rw-r--r--  1 classsat class    4619 2009-09-01 04:01 Makefile.am
+-rw-r--r--  1 classsat class   59635 2009-09-10 22:56 Makefile.in
+drwxr-xr-x  2 classsat class   16384 2017-10-18 15:31 man
+-rw-r--r--  1 classsat class       0 2017-10-18 15:35 new
+-rw-r--r--  1 classsat class  110479 2009-09-10 22:53 NEWS
+drwxr-xr-x  5 classsat class    4096 2009-09-10 23:15 old
+-rw-r--r--  1 classsat class    1025 2017-10-18 15:30 patch_file
+drwxr-xr-x  2 classsat class    8192 2017-10-18 15:07 po
+-rw-r--r--  1 classsat class   10637 2009-09-01 04:01 README
+drwxr-xr-x  3 classsat class   28672 2017-10-18 15:31 src
+-rw-r--r--  1 classsat class       0 2017-10-18 15:35 –t
+-rw-r--r--  1 classsat class       0 2017-10-18 15:35 test_file
+drwxr-xr-x 22 classsat class    4096 2017-10-18 15:07 tests
+-rw-r--r--  1 classsat class   34903 2009-09-10 10:33 THANKS
+-rw-r--r--  1 classsat class    1678 2009-09-10 23:06 THANKS-to-translators
+-rw-r--r--  1 classsat class     121 2009-09-01 04:01 THANKStt.in
+-rw-r--r--  1 classsat class    7658 2009-09-01 04:01 TODO 
+
+After running ./src/ls -l
+we get 
+
+-rw-r--r--  1 classsat class       0 Oct 18 15:35 201401210959.30
+-rw-r--r--  1 classsat class   80541 Sep 18  2008 ABOUT-NLS
+-rw-r--r--  1 classsat class   47272 Sep 10  2009 aclocal.m4
+-rw-r--r--  1 classsat class    3571 Sep  1  2009 AUTHORS
+-rwxr-xr-x  1 classsat class   23005 Sep  1  2009 bootstrap
+-rw-r--r--  1 classsat class    5641 Sep 10  2009 bootstrap.conf
+drwxr-xr-x  2 classsat class    4096 Sep 10  2009 build-aux
+-rw-r--r--  1 classsat class    7744 Sep 10  2009 cfg.mk
+-rw-r--r--  1 classsat class  310286 Sep 10  2009 ChangeLog
+-rw-r--r--  1 classsat class  448879 Sep  1  2009 ChangeLog-2005
+-rw-r--r--  1 classsat class  153390 Sep  1  2009 ChangeLog-2006
+-rw-r--r--  1 classsat class  158644 Sep  1  2009 ChangeLog-2007
+-rw-r--r--  1 classsat class   13716 Sep  1  2009 ChangeLog-2008
+-rw-r--r--  1 classsat class 1565398 Oct 18 15:07 config.log
+-rwxr-xr-x  1 classsat class   77307 Oct 18 15:07 config.status
+-rwxr-xr-x  1 classsat class 1179944 Sep 10  2009 configure
+-rw-r--r--  1 classsat class   15617 Sep 10  2009 configure.ac
+-rw-r--r--  1 classsat class   35147 Sep  1  2009 COPYING
+-rw-r--r--  1 classsat class    4838 Sep  1  2009 dist-check.mk
+drwxr-xr-x  2 classsat class    4096 Oct 18 15:07 doc
+drwxr-xr-x  3 classsat class    4096 Sep 10  2009 gl
+drwxr-xr-x  5 classsat class   20480 Oct 18 15:07 gnulib-tests
+-rw-r--r--  1 classsat class    4702 Mar 15  2009 GNUmakefile
+-rw-r--r--  1 classsat class   15513 Aug 30  2009 INSTALL
+drwxr-xr-x  7 classsat class   61440 Oct 18 15:07 lib
+drwxr-xr-x  2 classsat class   28672 Sep 10  2009 m4
+-rw-r--r--  1 classsat class   28788 Sep  8  2009 maint.mk
+-rw-r--r--  1 classsat class   56482 Oct 18 15:07 Makefile
+-rw-r--r--  1 classsat class    4619 Sep  1  2009 Makefile.am
+-rw-r--r--  1 classsat class   59635 Sep 10  2009 Makefile.in
+drwxr-xr-x  2 classsat class   16384 Oct 18 15:31 man
+-rw-r--r--  1 classsat class       0 Oct 18 15:35 new
+-rw-r--r--  1 classsat class  110479 Sep 10  2009 NEWS
+drwxr-xr-x  5 classsat class    4096 Sep 10  2009 old
+-rw-r--r--  1 classsat class    1025 Oct 18 15:30 patch_file
+drwxr-xr-x  2 classsat class    8192 Oct 18 15:07 po
+-rw-r--r--  1 classsat class   10637 Sep  1  2009 README
+drwxr-xr-x  3 classsat class   28672 Oct 18 15:31 src
+-rw-r--r--  1 classsat class       0 Oct 18 15:35 –t
+-rw-r--r--  1 classsat class       0 Oct 18 15:35 test_file
+drwxr-xr-x 22 classsat class    4096 Oct 18 15:07 tests
+-rw-r--r--  1 classsat class   34903 Sep 10  2009 THANKS
+-rw-r--r--  1 classsat class    1678 Sep 10  2009 THANKS-to-translators
+-rw-r--r--  1 classsat class     121 Sep  1  2009 THANKStt.in
+-rw-r--r--  1 classsat class    7658 Sep  1  2009 TODO
+
+Hence the patch has been successful and the new ls command in /coreutils-7.6/src works correctly.

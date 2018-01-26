@@ -1,0 +1,9 @@
+Satvik Anand
+404823011
+
+First I had to set up BeagleBone which I did by following the instructions on Piazza. 
+ I downloaded and installed the drivers on my computer, and then connected the BeagleBone to wifi and downloaded Firefox.
+
+The next step in the lab was to act as the client server for my partner. So my partner set up the account for me in the .ssh directory and gave me permission. After that I generated my public and private keys using the command ssh-keygen. Then I copied my public key onto the server. I used the username satvik1 and the server IP address was 164.67.84.32. I used the command ssh-copy-id -i satvik1@164.67.84.32. I used the command ssh-add to add my private key to the authentication agent. Everything worked as it was suppose to and the commmand ssh satvik1@164.67.84.32 allowed me to connect to the remote server. There was also just one entry in ~/.ssh/known_hosts which corresponds to the one server I have authenticated with.
+
+The last step was to see if port forwarding was working. I testing this with the command ssh -X satvik1@164.67.84.32 and I ran the commands xterm, gedit and firefox and found that these windows opened on my computer in XQuartz. THus port forwarding was working as expected.

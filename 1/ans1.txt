@@ -1,0 +1,126 @@
+1. man -k (keyword)
+I found the answer by reading man man.
+
+2. /usr/bin/cp
+/usr/bin/wc
+I used which followed by cp and wc respectively. 
+
+3. [ - no manual entry
+W - Show who is logged on and what they are doing.
+X - tries to create new server
+
+I used find /usr/bin -name ? -executable
+
+4. /etc/alternatives/emacs
+I used readlink /usr/bin/emacs
+
+5. g+s gives anyone accessing the file the permissions of everyone else in the group.
+o-x removes the permission of those not in the users and groups to execute.
+I used man chmod.
+
+6. find -ctime -21
+I used man find. 
+
+7. 
+.
+./.login
+./.logout
+./.cshrc
+./.profile
+./.bash_logout
+./nsdefault
+./Desktop
+./Desktop/$RECYCLE.BIN
+./Desktop/$RECYCLE.BIN/desktop.ini
+./Desktop/desktop.ini
+./Desktop/Google Chrome.lnk
+./Documents
+./Documents/.#test.txt
+./Documents/$RECYCLE.BIN
+./Documents/$RECYCLE.BIN/desktop.ini
+./Documents/CS33
+./Documents/CS33/hw1
+./Documents/CS33/hw1/2.62
+./Documents/CS33/hw1/2.62.c
+./Downloads
+./Downloads/$RECYCLE.BIN
+./Downloads/$RECYCLE.BIN/desktop.ini
+./Downloads/desktop.ini
+./.cache
+./.cache/abrt
+./.cache/abrt/lastnotification
+./.config
+./.config/abrt
+./perl5
+./.bash_history
+./.emacs.d
+./.emacs.d/auto-save-list
+./.emacs.d/auto-save-list/.saves-33698-lnxsrv07.seas.ucla.edu~
+./.viminfo
+./.lesshst
+./.swp
+./.Xauthority
+
+8. 246 
+I used find -type l | wc 
+
+9. libgpg-error.so.0.10.0
+I used man find and then used ls -sort -t.
+
+10. The locale command gets its information from the environment variables that control the locale. Found on man locale.
+
+11. Buffer-menu-sort, sort-columns, sort-fields, sort-lines,
+sort-numeric-fields, sort-pages, sort-paragraphs, sort-regexp-fields,
+tabulated-list-col-sort, tabulated-list-sort.
+I used C-h a followed by sort.
+
+12. -M-a: moves to beginning of the current function
+C-M-b: moves backward over a balanced expression
+C-M-c: exits the recursive editing
+C-M-d: moves to the right of first left parenthesis
+C-M-e: moves to the end of the current function
+C-M-f: moves forward over a balanced expression
+C-M-g: doesn’t do anything
+C-M-h: marks the region of the following function
+Found out after executing all the commands.
+
+13. Cancels the typed commands.
+Found out while working on the homework. 
+
+14. C-g quits the current operation.
+Was mentioned in class.
+
+15. The dired command shows hidden files whereas ls -l does not. 
+I found this on the gnu website from the lab powerpoint.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

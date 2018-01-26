@@ -1,0 +1,8 @@
+1. The line case_long_iso_time_style is repeated twice and it is also a goto statement in a switch statement. Since it was part of a switch statement, it wasn’t necessary to remove it as it would have just moved on to its next appearance. However the code looks cleaner without it.
+
+2. There might be problems if the company is not used to reading the date in english, which happens when the company deals with international clients and colleagues. The patch may also produce undesirable results when people are not used to reading the date in that particular timestamp format. 
+
+3. Since dev/null is an empty file and the command we run assumes that there is something in it, and we get the error that it is out of range. 
+
+4. Python has automatic tuple unpacking, so the parameter passes gives an error as it is a tuple.
+To fix it, we can pass a single parameter instead and then reference the multiple arguments. 
